@@ -108,21 +108,27 @@ def search_hyperparameters(data, dataset):
   best_amplify = 1.0
   best_val_threshold = 0
   (default_label, fitted_label, left_graphs_len) = find_default_and_fitted_label(data, dataset)
+
+  (graph_scores, _) = map_val_graphs_to_scores(data, dataset)
+
   amplify_candidates = [1.0, 0.98, 0.94, 0.92, 0.90]
+  best_graph_scores = copy.deepcopy(graph_scores)
   for _, amplify in enumerate(amplify_candidates):
-    correct = find_val_threshold(default_label, fitted_label, amplify, best_val_threshold, data, dataset)
+    tmp_graph_scores = copy.deepcopy(graph_scores)
+    for _, val_graph in enumerate(data.val_graphs):
+      score = tmp_graph_scores[val_graph][fitted_label]
+      score = score * amplify
+      tmp_graph_scores[val_graph][fitted_label] = score
+    (correct, _) = eval_validation(tmp_graph_scores, data)
     if correct >= best_correct:
       best_correct = correct
       best_amplify = amplify
 
 
   val_graphs_len_thresholds = []
-  #print(val_graphs_len_thresholds)
   for i in range(5):
     val_graphs_len_thresholds.append(int(data.epsilon * i))
   val_graphs_len_thresholds = list(set(val_graphs_len_thresholds))
-  #print(val_graphs_len_thresholds)
-  #if len(data.val_graphs) > 100:
   for _, threshold in enumerate(val_graphs_len_thresholds):
     correct = find_val_threshold(default_label, fitted_label, amplify, threshold, data, dataset)
     if correct >= best_correct:
