@@ -114,36 +114,19 @@ def eval_acc_explainability(dataset):
         fidelity_sum.append(0)
 
       chosen_graphs = eval_GDL_program_on_graphs_GC(provided_GDL_program, data)     
-      print("============================================================")
-      print("Test graph : {}".format(test_graph))
-      print("GDL Program")
-      print(provided_GDL_program.nodeVars)
-      print(provided_GDL_program.edgeVars)
-      print()
-      print("Chosen graphs : {}".format(len(chosen_graphs)))
       correctly_explained_predictions = chosen_graphs & graph_predictions[prediction]
-      print("Correctly explained graphs : {}".format(len(correctly_explained_predictions)))
-      print("Model predicted : {}".format(len(graph_predictions[prediction])))
-      print("============================================================")
       generality = len(correctly_explained_predictions)/len(graph_predictions[prediction])
       precision = len(correctly_explained_predictions)/len(chosen_graphs)   
       
+      print("=============== node : {} ==================".format(test_graph))
+      print("Prediction : {}".format(prediction))    
+      print_GDL_program(test_graph_to_scores[test_graph][prediction][1])
+      print("Score : {}".format(test_graph_to_scores[test_graph][prediction][0]))  
+      print("==============================================")    
+      
       generality_sum.append(generality)
       precision_sum.append(precision)
-      print()
-      print()
-      print("Test idx : {}".format(test_graph))
-      print("GDL Program")
-      print(test_graph_to_scores[test_graph][max_idx][1].nodeVars)
-      print(test_graph_to_scores[test_graph][max_idx][1].edgeVars)
-      print("Score : {}".format(test_graph_to_scores[test_graph][max_idx][0]))    
-    
-    
     #if test_graph_to_scores[test_graph][max_idx][0] > 0.0:
-
-
-
-
 
     if max_idx == data.graph_to_label[test_graph]:
       correct = correct + 1
@@ -152,7 +135,6 @@ def eval_acc_explainability(dataset):
     #     my_list[data.graph_to_label[test_graph]] += 1
     #   else:
     #     my_list[0] += 1
- 
   print()
   print("Correct : {}".format(correct))
   print("Test Accuracy : {}".format(float(correct/len(data.test_graphs))))
