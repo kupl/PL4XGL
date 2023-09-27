@@ -120,7 +120,7 @@ def eval_GDL_program_DFS(GDL_program, graph, data):
     condition3 = concrete_node_belong_node_var(GDL_program.nodeVars[node_var_to], data.A[edge][1], data.X_node)
     if condition1 and condition2 and condition3:
       candidate_edges.add(edge) 
- 
+
   for _, init_graph_edge in enumerate(candidate_edges):
     node_var_idx_to_concrete_node = {}
     edge_var_idx_to_concrete_edge = {}
@@ -394,11 +394,11 @@ def remove_unreachable_nodes(GDL_program):
 
 def print_GDL_program(GDL_program):
   # Nameless representation
-  # print("----------------  Nameless representation  ----------------")
-  # print("NodeVarConstraints")
-  # print(GDL_program.nodeVars)
-  # print("EdgeVarConstraints")  
-  # print(GDL_program.edgeVars)
+  print("----------------  Nameless representation  ----------------")
+  print("NodeVarConstraints")
+  print(GDL_program.nodeVars)
+  print("EdgeVarConstraints")  
+  print(GDL_program.edgeVars)
   print("-------------- GDL program  --------------")
   nodeVars = GDL_program.nodeVars
   for idx in range(len(nodeVars)):
@@ -409,9 +409,9 @@ def print_GDL_program(GDL_program):
   edgeVars = GDL_program.edgeVars    
   for idx in range(len(edgeVars)):
     if len(edgeVars[idx][0]) == 0:        
-      print("Edge (v{}, v{})".format(edgeVars[idx][1], edgeVars[idx][2]))
+      print("edge (v{}, v{})".format(edgeVars[idx][1], edgeVars[idx][2]))
     else:
-      print("Edge (v{}, v{}) {}".format(edgeVars[idx][1], edgeVars[idx][2], edgeVars[idx][0]))
+      print("edge (v{}, v{}) {}".format(edgeVars[idx][1], edgeVars[idx][2], edgeVars[idx][0]))
   print("target graph")
   print("------------------------------------------")
     
