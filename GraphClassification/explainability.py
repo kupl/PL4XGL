@@ -22,6 +22,7 @@ def eval_acc_explainability(dataset):
 
   GDL_program = GDL()
   test_graph_to_scores = {}
+  score_pgm_sets= [set(), set()]
   
   print("=======================================================")
   (default_label, fitted_label, amplify, val_threshold) = search_hyperparameters(data, dataset)
@@ -56,6 +57,7 @@ def eval_acc_explainability(dataset):
         continue
       if label == fitted_label:
         score = score * amplify
+      score_pgm_sets[label].add((score, learned_GDL_pgm))        
       for _, test_graph in enumerate(chosen_graphs & data.test_graphs):
         if test_graph_to_scores[test_graph][label][0] < score:
           test_graph_to_scores[test_graph][label] = (score, learned_GDL_pgm)
@@ -91,13 +93,25 @@ def eval_acc_explainability(dataset):
       unimportant_nodes = original_nodes - important_nodes
       sparsity_score = 1 - (len(matching_subgraph[0]))/(len(data.graphs[test_graph][0]))
       sparsity_sum.append(sparsity_score)
-      tmp_scores = [(0,None),(0,None)]
+      tmp_scores = [(-1, None),(-1, None)]
       tmp_scores[prediction] = (score_list[prediction], provided_GDL_program)
       if prediction == 0:
         other_label = 1
       else:
         other_label = 0
-      fidelity_sum.append(0)
+
+      flag = False
+      for _, (current_score, current_GDL_program) in enumerate(score_pgm_sets[other_label]):
+        if current_score > tmp_scores[prediction][0] :
+          if eval_GDL_program_DFS(current_GDL_program, data.graphs[test_graph], data) == True:
+            # Over approximation
+            # To have a fidelity score 1, this branch should be taken, but this cannot be happened
+            fidelity_sum.append(1)            
+            flag = True
+            break
+            #raise Exception("Cannot be happened")
+      if flag == False:
+        fidelity_sum.append(0)
 
       chosen_graphs = eval_GDL_program_on_graphs_GC(provided_GDL_program, data)     
       print("============================================================")
