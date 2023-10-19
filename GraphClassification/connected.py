@@ -104,7 +104,7 @@ def graph_is_connected(graph, data):
   return IsConnected(my_graph)
 
 
-'''
+#'''
 def separate_graph(graph, A):
   nodes = graph.Nodes
   edges = graph.Edges
@@ -125,7 +125,7 @@ def separate_graph(graph, A):
     #sys.exit()
     separated_graph_set.append(subgraph)
   return separated_graph_set
-'''
+#'''
 
 
 def separate_a_graph(graph, data):
