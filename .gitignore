@@ -1,1 +1,4 @@
 *.pyc
+*.pickle
+test.py
+
