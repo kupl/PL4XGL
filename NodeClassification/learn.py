@@ -1,5 +1,5 @@
 from multiprocessing.pool import ThreadPool
-import argparse
+import argparse, datetime
 import sys, os
 from data_loader import *
 
@@ -23,6 +23,7 @@ if __name__ == '__main__':
   labels = len(data.label_to_nodes)
   print(labels)
   my_labels = []
+  start = datetime.datetime.now()
   for i in range(int(labels)):
     my_labels.append(str(i))
   pool = ThreadPool(labels)
@@ -31,5 +32,10 @@ if __name__ == '__main__':
 
   pool.close()
   pool.join()
-
-
+  finish = datetime.datetime.now()
+  elapsed = finish - start
+  print()
+  print("======================================")
+  print("#Used cores : {}".format(cores))
+  print("Total training time: {}".format(elapsed))
+  print("======================================")
