@@ -3,8 +3,7 @@ from language import *
 from data_loader import *
 import argparse
 import datetime
-import os,sys
-import util
+import os
 from util import search_hyperparameters, find_max
 
 def eval_acc(dataset):

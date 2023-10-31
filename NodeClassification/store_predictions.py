@@ -1,11 +1,8 @@
 import pickle
-import argparse
 import json
 from language import *
-#from top_down_synthesis_NC import *
 from data_loader import *
 from util import search_hyperparameters, find_max_0
-import datetime
 
 
 
@@ -63,11 +60,7 @@ def store_predictions(dataset):
       for _, node in enumerate(chosen_nodes):
         if all_node_to_scores[node][label][0] < score:
           all_node_to_scores[node][label] = (score, learned_GDL_pgm)
-          #print(len(chosen_nodes))
-          
-  #print(all_node_to_scores)
-  #print(all_nodes)
-  #sys.exit()
+
   predicted_nodes = []
   for i in range(len(data.label_to_nodes)):
     predicted_nodes.append(set())

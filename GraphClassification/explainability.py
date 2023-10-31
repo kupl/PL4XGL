@@ -2,10 +2,9 @@ import pickle
 from language import *
 from data_loader import *
 from connected import *
-from btm_up_synthesis_GC import *
+from synthesis.btm_up_synthesis_GC import *
 import argparse
-import datetime
-import os,sys
+import os
 from util.eval_val import search_hyperparameters, find_max
 from store_predictions import store_predictions
 
@@ -20,7 +19,6 @@ def eval_acc_explainability(dataset):
   else:
     raise Exception("Not Implemented")
 
-  GDL_program = GDL()
   test_graph_to_scores = {}
   score_pgm_sets= [set(), set()]
   
@@ -61,9 +59,7 @@ def eval_acc_explainability(dataset):
       for _, test_graph in enumerate(chosen_graphs & data.test_graphs):
         if test_graph_to_scores[test_graph][label][0] < score:
           test_graph_to_scores[test_graph][label] = (score, learned_GDL_pgm)
-  #my_list = [0,0]
   correct = 0
-  my_cnt = 0
 
   fidelity_sum = []
   sparsity_sum = []
@@ -88,9 +84,6 @@ def eval_acc_explainability(dataset):
       print(provided_GDL_program.edgeVars)      
       matching_subgraph = find_matching_subgraph(provided_GDL_program, data.graphs[test_graph], data)
 
-      original_nodes = set(copy.deepcopy(data.graphs[test_graph][0]))
-      important_nodes = set(copy.deepcopy(matching_subgraph[0]))
-      unimportant_nodes = original_nodes - important_nodes
       sparsity_score = 1 - (len(matching_subgraph[0]))/(len(data.graphs[test_graph][0]))
       sparsity_sum.append(sparsity_score)
       tmp_scores = [(-1, None),(-1, None)]

@@ -1,8 +1,7 @@
 from language import *
 from synthesis.score import score
 import copy
-import json
-import sys
+
 
 def specify_mean(GDL_program, data):
   best_score = score(GDL_program, data)

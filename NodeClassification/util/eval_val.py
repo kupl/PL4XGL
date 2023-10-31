@@ -1,6 +1,5 @@
-import sys, copy
+import copy
 import pickle
-import json
 from language import *
 
 def find_max_0(my_list):
@@ -38,7 +37,6 @@ def eval_validation(node_scores, data):
   for _, val_node in enumerate(data.val_nodes):
     if sum(node_scores[val_node]) == 0:
       continue    
-    #print(node_scores[val_node])
     max_idx = find_max(node_scores[val_node])
     if max_idx == data.node_to_label[val_node]:
       correct = correct + 1
@@ -60,12 +58,8 @@ def map_val_nodes_to_scores(data, dataset):
       learned_tuples_set = pickle.load(f) 
     for _, learned_tuple in enumerate(learned_tuples_set):
       label = learned_tuple[0]
-      learned_GDL_pgm = learned_tuple[1]
       score = learned_tuple[2]
       chosen_nodes = learned_tuple[3]
-      chosen_train_nodes = len(chosen_nodes & data.train_nodes)
-      correctly_chosen_train_nodes = len(chosen_nodes & data.train_nodes & data.label_to_nodes[my_label])
-      #score = float(correctly_chosen_train_nodes  / (chosen_train_nodes + data.epsilon))
       chosen_val_nodes = chosen_nodes & data.val_nodes
       described_val_nodes = described_val_nodes | chosen_val_nodes
       for _, val_node in enumerate(chosen_val_nodes):
@@ -78,7 +72,7 @@ def map_val_nodes_to_scores(data, dataset):
 def find_default_and_fitted_label(data, dataset):
   left_nodes = copy.deepcopy(data.val_nodes)
   (val_node_to_scores, described_val_nodes) = map_val_nodes_to_scores(data, dataset)
-  (correct, fitted_label) = eval_validation(val_node_to_scores, data)
+  (_, fitted_label) = eval_validation(val_node_to_scores, data)
 
   left_nodes = left_nodes - described_val_nodes
   
@@ -134,7 +128,6 @@ def search_hyperparameters(data, dataset):
   print("Fitted lable :{}".format(fitted_label))
 
   amplify_candidates = [0.90, 0.92, 0.94, 0.96, 0.98, 1.0]
-  best_node_scores = copy.deepcopy(node_scores)
   for _, amplify in enumerate(amplify_candidates):
     tmp_node_scores = copy.deepcopy(node_scores)
     for _, val_node in enumerate(data.val_nodes):
@@ -149,7 +142,6 @@ def search_hyperparameters(data, dataset):
     if correct >= best_correct:
       best_correct = correct
       best_amplify = amplify
-      best_node_scores = tmp_node_scores
   
 
       
@@ -157,12 +149,9 @@ def search_hyperparameters(data, dataset):
   print("Fitted_label : {}".format(fitted_label))
   print("Best amplify : {}".format(best_amplify))
   val_nodes_len_thresholds = []
-  #print(val_nodes_len_thresholds)
   for i in range(5):
     val_nodes_len_thresholds.append(int(data.epsilon * i))
   val_nodes_len_thresholds = list(set(val_nodes_len_thresholds))
-  #print(val_nodes_len_thresholds)
-  #if len(data.val_nodes) > 100:
   for _, threshold in enumerate(val_nodes_len_thresholds):
     correct = find_val_threshold(default_label, fitted_label, amplify, threshold, data, dataset)
     if correct >= best_correct:
@@ -175,8 +164,6 @@ def search_hyperparameters(data, dataset):
   print("Best amplify : {}".format(best_amplify))
   print("Best threshold : {}".format(best_val_threshold))
   val_score = best_correct - left_nodes_len
-  #print()
-  #print()
   print("======================================")
   print("Val Score : {}".format(val_score))
   print("======================================")

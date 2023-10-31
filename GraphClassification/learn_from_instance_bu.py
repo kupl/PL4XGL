@@ -1,9 +1,9 @@
 import pickle
 from data_loader import load_MUTAG, load_BBBP, load_BACE 
-from btm_up_synthesis_GC import synthesis_bu
+from synthesis.btm_up_synthesis_GC import learn_a_GDL_program
 import argparse
 import datetime
-import os,sys
+import os
 
 
 # learn a GDL program from a target graph (target_graph)
@@ -25,7 +25,7 @@ def learn(dataset, target_graph):
   #training graphs having the same label with the target graph
   data.target_labeled_graphs = data.train_graphs & data.label_to_graphs[data.target_label]
   start = datetime.datetime.now()  
-  tuple_set = synthesis_bu(data)
+  tuple_set = learn_a_GDL_program(data)
   finish = datetime.datetime.now()
   elapsed = finish - start    
   if len(tuple_set) == 0:

@@ -2,9 +2,7 @@ import pickle
 import argparse
 import json
 from language import *
-#from top_down_synthesis_NC import *
 from data_loader import *
-import datetime
 from util import search_hyperparameters, find_max_0
 from store_predictions import store_predictions
 
@@ -169,16 +167,13 @@ def eval_acc_explainability(dataset):
   print("Sparsity : {}".format((sum(sparsity_sum) / len(sparsity_sum))))
   print("Generality : {}".format((sum(generality_sum) / len(generality_sum))))
   print("Precision : {}".format((sum(precision_sum) / len(precision_sum)))) 
-  #print(sparsity_sum) 
 
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('-d', '--dataset', help="input dataset")
-  #parser.add_argument('-e', '--epsilon', help="input epsilon")
   args = parser.parse_args()
   dataset = args.dataset
-  #epsilon = float(args.epsilon)
   store_predictions(dataset)
   print("Stored predictions")
   eval_acc_explainability(dataset)

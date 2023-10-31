@@ -1,4 +1,6 @@
 from language import *
+import json
+
 def score(GDL_program, data):
   key = (json.dumps(GDL_program.nodeVars), json.dumps(GDL_program.edgeVars))
   if key in data.dict:

@@ -28,13 +28,10 @@ def learn(dataset, target_label):
   with open('datasets/{}/learned_GDL_programs/td/learned_GDL_programs_for_label_{}.pickle'.format(dataset, target_label), 'wb') as f:
     pickle.dump(learned_tuples_set, f, pickle.HIGHEST_PROTOCOL)
     
-    #pickle.dump(learned_GDL_programs, f, pickle.HIGHEST_PROTOCOL)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
   parser.add_argument('-d', '--dataset', help="input dataset")
-  #parser.add_argument('-e', '--epsilon', help="input epsilon")
-  #parser.add_argument('-x', '--expect', help="input expectation")
   parser.add_argument('-l', '--label', help="target label")
   
   args = parser.parse_args()

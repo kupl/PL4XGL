@@ -1,5 +1,5 @@
 import copy
-import os, sys, pickle
+import os, pickle
 
 def find_max(my_list):
   max_idx = -1

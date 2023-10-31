@@ -33,13 +33,11 @@ def additional_learn_GDL_programs(data):
             top = 1.0
             new_GDL_program = copy.deepcopy(GDL_program)
             new_GDL_program.nodeVars[i][j] = (bot, top)
-            #key = json.dumps(new_sentence.absList)
             key = (json.dumps(new_GDL_program.nodeVars), json.dumps(new_GDL_program.edgeVars))
             if not key in data.GDL_program_dict:
               data.GDL_program_dict.add(key)
               new_score = my_score(new_GDL_program, data)
               if new_score > 0.5:
-                #if new_score > data.default_score * data.expected:
                 print()
                 print("New AbsGraph")
                 print(new_GDL_program.nodeVars)
@@ -58,13 +56,11 @@ def additional_learn_GDL_programs(data):
             new_GDL_program = copy.deepcopy(GDL_program)
             new_GDL_program.nodeVars.append(new_node)
             new_GDL_program.edgeVars.append( ({}, p, q) )
-            #key = json.dumps(new_sentence.absList)
             key = (json.dumps(new_GDL_program.nodeVars), json.dumps(new_GDL_program.edgeVars))
             if not key in data.GDL_program_dict:
               data.GDL_program_dict.add(key)
               new_score = my_score(new_GDL_program, data)
               if new_score > 0.4:
-                #if new_score > data.expected:
                 print()
                 print("New AbsGraph")
                 print(new_GDL_program.nodeVars)
@@ -84,13 +80,11 @@ def additional_learn_GDL_programs(data):
             new_GDL_program = copy.deepcopy(GDL_program)
             new_GDL_program.nodeVars.append(new_node)
             new_GDL_program.edgeVars.append( ({}, p, q) )
-            #key = json.dumps(new_sentence.absList)
             key = (json.dumps(new_GDL_program.nodeVars), json.dumps(new_GDL_program.edgeVars))
             if not key in data.GDL_program_dict:
               data.GDL_program_dict.add(key)
               new_score = my_score(new_GDL_program, data)
               if new_score > 0.5:
-                #if new_score > data.default_score * data.expedted:
                 print()
                 print("New AbsGraph")
                 print(new_GDL_program.nodeVars)

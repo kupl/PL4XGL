@@ -1,6 +1,4 @@
 import copy
-import sys 
-import json
 
 class Undefined(Exception):
     pass

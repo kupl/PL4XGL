@@ -2,7 +2,6 @@ import pickle
 import argparse
 import json
 from language import *
-#from top_down_synthesis_NC import *
 from data_loader import *
 from util import search_hyperparameters, find_max_0
 import datetime

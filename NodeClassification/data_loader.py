@@ -1,9 +1,6 @@
-import pickle
+import pickle, os
 from language import *
-#from top_down_learning_NC import *
 
-import sys, os
-#import json
 class Data:
   def __init__(self):
     self.graph_to_label = {}
@@ -165,9 +162,6 @@ def data_loader(dataset):
     data.chosen_depth = 2 
   else:
     data.chosen_depth = 1 
-   
-  data.is_undirected = True
-
   return data
     
   

@@ -2,9 +2,6 @@ from language import *
 from synthesis.specify_middle import specify_middle
 from synthesis.specify_mean import specify_mean
 from synthesis.score import score
-import copy
-import json
-import sys
 
 
 def learn_GDL_programs_td_node_classification(data): 
