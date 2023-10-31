@@ -25,7 +25,7 @@ def learn_GDL_programs_td_node_classification(data):
     new_GDL_program.edgeVars = []
     data.default_score = score(new_GDL_program, data)
     print("Default score : {}".format(data.default_score))
-    (new_GDL_programs, new_GDL_program) = learn_an_GDL_program(data)
+    (new_GDL_programs, new_GDL_program) = learn_a_GDL_program(data)
     chosen_nodes = eval_GDL_program_NC_DFS(new_GDL_program, data) 
     print ("# of chosen Nodes : "+str(len((chosen_nodes & data.train_nodes))))
     print ("Chosen Labeled Nodes : "+str(chosen_nodes & data.original_labeled_nodes & data.train_nodes))
@@ -41,7 +41,7 @@ def learn_GDL_programs_td_node_classification(data):
 
 
 
-def learn_an_GDL_program(data):
+def learn_a_GDL_program(data):
   GDL_program = GDL()
   GDL_program.nodeVars = [{}]
   GDL_program.edgeVars = []
@@ -84,7 +84,7 @@ def learn_an_GDL_program(data):
     print("---------------------------------------------------------------------")
     i = i+1
   print ("============================================")
-  print ("Learned Best AbsGraph")
+  print ("Learned Best GDL program")
   print (new_GDL_program.nodeVars)
   print (new_GDL_program.edgeVars)
   print ("============================================")
@@ -95,12 +95,11 @@ def learn_an_GDL_program(data):
 
 
 
-
 def specify(GDL_program, data):
   best_score = score(GDL_program, data)
   best_GDL_program = GDL_program
 
-  print ("Current Best AbsGraph")
+  print ("Current Best GDL program")
   print (best_GDL_program.nodeVars)
   print (best_GDL_program.edgeVars)
   print ("Curret Best score : " + str(best_score))
@@ -121,10 +120,10 @@ def specify(GDL_program, data):
           feature_list_rev = data.feature_list_rev[j]
           min_max_feature = data.min_max_feature[j]
 
-          abs_node = GDL_program.nodeVars[i]
-          if j in abs_node:
-            bot = abs_node[j][0]
-            top = abs_node[j][1]
+          node_var = GDL_program.nodeVars[i]
+          if j in node_var:
+            bot = node_var[j][0]
+            top = node_var[j][1]
             top_idx = feature_list.index(top)
 
             bot_idx = feature_list_rev.index(bot)
@@ -144,8 +143,9 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
             
 
@@ -162,8 +162,9 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
             
 
@@ -181,8 +182,9 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
 
 
@@ -198,10 +200,10 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
-      #ToDo 
       if len(GDL_program.nodeVars) < 3:
         for j in range(len(data.X_node[0])):
           new_node = {}
@@ -223,8 +225,9 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
 
           new_node = {}
@@ -249,8 +252,9 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
 
         if data.is_undirected:
@@ -276,8 +280,9 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
 
 
@@ -304,21 +309,23 @@ def specify(GDL_program, data):
               best_score = new_score
               best_GDL_program = new_GDL_program
               print ("Current Best GDL_program")
-              print (new_GDL_program.nodeVars)
-              print (new_GDL_program.edgeVars)
+              print_GDL_program(new_GDL_program,'nameless')
+              #print (new_GDL_program.nodeVars)
+              #print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
 
     candidate_GDL_programs = new_candidate_GDL_programs
-  print ("Best abstract graph")
-  print (best_GDL_program.nodeVars)
-  print (best_GDL_program.edgeVars)
+  print ("Best GDL program")
+  print_GDL_program(best_GDL_program,'nameless')
+  #print (best_GDL_program.nodeVars)
+  #print (best_GDL_program.edgeVars)
   return (best_GDL_program, best_score) 
 
 
 def specify_binary(GDL_program, data):
   best_score = score(GDL_program, data)
   best_GDL_program = GDL_program
-  print ("Current best absGraph") 
+  print ("Current best GDL program") 
   print (best_GDL_program.nodeVars)
   print (best_GDL_program.edgeVars)
   print ("Curret Best score : " + str(best_score))
@@ -339,8 +346,8 @@ def specify_binary(GDL_program, data):
 
       for i in range(len(GDL_program.nodeVars)):
         for j in range(len(data.X_node[0])):
-          abs_node = GDL_program.nodeVars[i]
-          if j in abs_node:
+          node_var = GDL_program.nodeVars[i]
+          if j in node_var:
             continue
           else:
             bot = 0.5 
@@ -357,8 +364,6 @@ def specify_binary(GDL_program, data):
               print (new_GDL_program.nodeVars)
               print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
-            #if new_score > 0.9:
-            #  my_GDL_programs.add(new_GDL_program)
             bot = 0.0
             top = 0.5
             new_GDL_program = copy.deepcopy(GDL_program)
@@ -374,8 +379,6 @@ def specify_binary(GDL_program, data):
               print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
 
-            #if new_score > 0.9:
-            #  my_GDL_programs.add(new_GDL_program)
 
       if len(GDL_program.nodeVars) < 3:
         for j in range(len(data.X_node[0])):
@@ -398,8 +401,6 @@ def specify_binary(GDL_program, data):
               print (new_GDL_program.nodeVars)
               print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
-            #if new_score2 > 0.9:
-            #  my_GDL_programs.add(new_GDL_program)
 
           new_node = {}
           bot = 0.0
@@ -420,8 +421,6 @@ def specify_binary(GDL_program, data):
               print (new_GDL_program.nodeVars)
               print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
-            #if new_score2 > 0.9:
-            #  my_GDL_programs.add(new_GDL_program)
 
 
         if data.is_undirected:
@@ -450,8 +449,6 @@ def specify_binary(GDL_program, data):
               print (new_GDL_program.nodeVars)
               print (new_GDL_program.edgeVars)
               print ("Current Best score : " + str(best_score))
-            #if new_score2 > 0.9:
-            #  my_GDL_programs.add(new_GDL_program)
 
 
           new_node = {}
@@ -479,7 +476,7 @@ def specify_binary(GDL_program, data):
 
 
     candidate_GDL_programs = new_candidate_GDL_programs
-  print ("The Best Abstract Graph")
+  print ("The Best GDL program")
   print (best_GDL_program.nodeVars)
   print (best_GDL_program.edgeVars)
   return (best_GDL_program, best_score) 

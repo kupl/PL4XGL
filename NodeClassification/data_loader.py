@@ -104,8 +104,14 @@ def data_loader(dataset):
   feature_list_rev = []
   min_max_features = []
   
-  
-  if not is_one_hot:  
+  if is_one_hot:
+    for i, feat in enumerate(X[0]):
+      feature_list.append([0.0, 1.0])
+      feature_list_rev.append([0.0, 1.0])
+      min_max_features.append([0.0, 1.0])
+
+
+  else: # not one_hot
     for i, feat in enumerate(X[0]):
       feature_list.append([])
       feature_list_rev.append([])
@@ -121,6 +127,7 @@ def data_loader(dataset):
       feature_list_rev[j] = copy.deepcopy(feature_list[j])
       feature_list_rev[j].reverse()
       min_max_features[j] = [(feature_list[j][0], feature_list[j][len(feature_list[j]) - 1])]
+
 
   data = Data()
   data.node_to_label = node_to_label
@@ -141,11 +148,14 @@ def data_loader(dataset):
   data.pred_node_to_nodes = pred_node_to_nodes
   print("Is one hot : {}".format(is_one_hot))
   if dataset == 'BA-Shapes' or dataset == 'Tree-Cycles':
-        data.epsilon = 10
+    data.epsilon = 10
+    data.is_undirected = True
   elif dataset == 'Wisconsin' or dataset == 'Texas' or dataset == 'Cornell':
     data.epsilon = 1
+    data.is_undirected = False 
   else:
-    data.epsilon = 0.1
+    print("Not implemented")
+    raise 
   data.expected = 1.2
 
   #simple data
@@ -157,7 +167,7 @@ def data_loader(dataset):
     data.chosen_depth = 1 
    
   data.is_undirected = True
-  
+
   return data
     
   

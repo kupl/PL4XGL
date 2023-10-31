@@ -145,7 +145,7 @@ def eval_acc_explainability(dataset):
       print("Test node : {}".format(node))
       print()
       print()
-      print_GDL_program(provided_GDL_program)
+      print_GDL_program(provided_GDL_program, 'normal')
       print("Sparsity : {}".format(sparsity_score))
       print("Fidelity : {}".format(0))
       print("Generality : {}".format(generality))

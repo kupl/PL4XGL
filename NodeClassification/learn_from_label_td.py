@@ -1,7 +1,7 @@
 import pickle
 import argparse
 from language import *
-from top_down_synthesis_NC import *
+from synthesis.top_down_synthesis_NC import *
 from data_loader import *
 from graph_additional_learn import *
 

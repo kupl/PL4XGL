@@ -306,25 +306,32 @@ def get_edge_var_case_and_update_sub_GDL_program(sub_GDL_program, edge_var):
   return (sub_GDL_program, case)
 
 
-def print_GDL_program(GDL_program):
-  #Nameless representation
-  print("----------------  Nameless representation  ----------------")
-  print("nodeVars (first one is the target)")
-  print(GDL_program.nodeVars)
-  print("edgeVars")
-  print(GDL_program.edgeVars)
-  print("-------------- GDL program  --------------")
-  nodeVars = GDL_program.nodeVars
-  for idx in range(len(nodeVars)):
-    if len(nodeVars[idx]) == 0:
-      print("node v{}".format(idx))
-    else:
-      print("node v{} {}".format(idx, nodeVars[idx]))
-  edgeVars = GDL_program.edgeVars
-  for idx in range(len(edgeVars)):
-    if len(edgeVars[idx][0]) == 0:
-      print("edge (v{}, v{})".format(edgeVars[idx][1], edgeVars[idx][2]))
-    else:
-      print("edge (v{}, v{}) {}".format(edgeVars[idx][1], edgeVars[idx][2], edgeVars[idx][0]))
-  print("target node v1")
-  print("------------------------------------------")
+def print_GDL_program(GDL_program, representation_type):
+  
+  if representation_type == 'nameless':
+    #Nameless representation
+    print("---------------- GDL program (Nameless representation) ----------------")
+    print("nodeVars (first one is the target)")
+    print(GDL_program.nodeVars)
+    print("edgeVars")
+    print(GDL_program.edgeVars)
+
+  elif representation_type == 'normal':
+    print("-------------- GDL program  --------------")
+    nodeVars = GDL_program.nodeVars
+    for idx in range(len(nodeVars)):
+      if len(nodeVars[idx]) == 0:
+        print("node v{}".format(idx))
+      else:
+        print("node v{} {}".format(idx, nodeVars[idx]))
+    edgeVars = GDL_program.edgeVars
+    for idx in range(len(edgeVars)):
+      if len(edgeVars[idx][0]) == 0:
+        print("edge (v{}, v{})".format(edgeVars[idx][1], edgeVars[idx][2]))
+      else:
+        print("edge (v{}, v{}) {}".format(edgeVars[idx][1], edgeVars[idx][2], edgeVars[idx][0]))
+    print("target node v1")
+    print("------------------------------------------")
+
+
+
