@@ -11,5 +11,12 @@ This is the implementation of our submitted paper " $PL4XGL$: A Programming Lang
 
 ## How to use
 
-``GraphClassification`` and ``NodeClassification`` folders include the implementation of $PL4XGL$ for graph classification and node classification tasks, respectively. For example, if you want to reproduce the results of $PL4XGL$ for the graph classification datasets $MUTAG$, $BBBP$, and $BACE$, move to ``GraphClassification`` folder and follow the instructions. If you want to reproduce the results for the node classification datasets, move to ``NodeClassification`` folder.
+``GraphClassification`` and ``NodeClassification`` folders include the implementation of $PL4XGL$ for graph classification and node classification tasks, respectively. 
 
+### Reproducing results for Graph Classification Datasets
+
+if you want to reproduce the results of $PL4XGL$ for the graph classification datasets ($MUTAG$, $BBBP$, and $BACE$ datasets), move to ``GraphClassification`` folder and follow the instructions. 
+
+### Reproducing results for Node Classification Datasets
+
+if you want to reproduce the results of $PL4XGL$ for the node classification datasets ($Texas$, $Cornell$, $Wisconsin$, $BA$-$Shapes$, and $Tree$-$Cycles$ datasets) move to ``GraphClassification`` folder and follow the instructions. 
