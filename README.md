@@ -1,6 +1,6 @@
 # PL4XGL
 
-This is the implementation of our submitted paper " $PL4XGL$: A Programming Language Approach to Explainable Graph Learning." This implementation aims to reproduce the results of $PL4XGL$ in Table  3, Figure 11 of our paper, and Figure 2 of our supplementary material.
+This is the implementation of our submitted paper "_PL4XGL_: A Programming Language Approach to Explainable Graph Learning." This implementation aims to reproduce the results of _PL4XGL_ in Table  3, Figure 11 of our paper, and Figure 2 of our supplementary material.
 
 
 ## Requirement
