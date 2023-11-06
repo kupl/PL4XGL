@@ -136,16 +136,16 @@ def search_hyperparameters(data, dataset):
       best_val_threshold = threshold
 
 
-  print("Default label : {}".format(default_label))
-  print("Fitted label : {}".format(fitted_label))
-  print("Best amplify : {}".format(best_amplify))
-  print("Best threshold : {}".format(best_val_threshold))
+  #print("Default label : {}".format(default_label))
+  #print("Fitted label : {}".format(fitted_label))
+  #print("Best amplify : {}".format(best_amplify))
+  #print("Best threshold : {}".format(best_val_threshold))
   val_score = best_correct - left_graphs_len
   #print()
   #print()
-  print("======================================")
-  print("Val Score : {}".format(val_score))
-  print("======================================")
+  #print("======================================")
+  #print("Val Score : {}".format(val_score))
+  #print("======================================")
   return (default_label, fitted_label, best_amplify, best_val_threshold)
 
 

@@ -84,6 +84,7 @@ def eval_acc_explainability(dataset):
       #print(provided_GDL_program.edgeVars)      
       matching_subgraph = find_matching_subgraph(provided_GDL_program, data.graphs[test_graph], data)
 
+      fidelity_score = 0.0
       sparsity_score = 1 - (len(matching_subgraph[0]))/(len(data.graphs[test_graph][0]))
       sparsity_sum.append(sparsity_score)
       tmp_scores = [(-1, None),(-1, None)]
@@ -99,24 +100,28 @@ def eval_acc_explainability(dataset):
           if eval_GDL_program_DFS(current_GDL_program, data.graphs[test_graph], data) == True:
             # Over approximation
             # To have a fidelity score 1, this branch should be taken, but this cannot be happened
-            fidelity_sum.append(1)            
+            fidelity_score = 1.0
+            fidelity_sum.append(fidelity_score)            
             flag = True
-            break
-            #raise Exception("Cannot be happened")
+            raise Exception("Cannot be happened")
       if flag == False:
-        fidelity_sum.append(0)
+        fidelity_sum.append(fidelity_score)
 
       chosen_graphs = eval_GDL_program_on_graphs_GC(provided_GDL_program, data)     
       correctly_explained_predictions = chosen_graphs & graph_predictions[prediction]
       generality = len(correctly_explained_predictions)/len(graph_predictions[prediction])
       precision = len(correctly_explained_predictions)/len(chosen_graphs)   
       
-      print("=============== node : {} ==================".format(test_graph))
-      print("Prediction : {}".format(prediction))    
+      print("=================================")
+      print("Test graph : {}".format(test_graph))    
+      print()
       print_GDL_program(test_graph_to_scores[test_graph][prediction][1], 'normal')
-      print("Score : {}".format(test_graph_to_scores[test_graph][prediction][0]))  
+      print("Sparsity : {}".format(sparsity_score))
+      print("Fidelity : {}".format(fidelity_score))
+      print("Generality : {}".format(generality))
+      print("Precision : {}".format(precision))
       print("==============================================")    
-      
+   
       generality_sum.append(generality)
       precision_sum.append(precision)
     #if test_graph_to_scores[test_graph][max_idx][0] > 0.0:
@@ -129,13 +134,16 @@ def eval_acc_explainability(dataset):
     #   else:
     #     my_list[0] += 1
   print()
-  print("Correct : {}".format(correct))
-  print("Test Accuracy : {}".format(float(correct/len(data.test_graphs))))
+  print("==========================")
+  print("Test graphs : {}".format(len(data.test_graphs)))
+  print("Correctly classified graphs : {}".format(correct))
+  print("Accuracy : {}".format(float(correct/len(data.test_graphs))))
   print("==========================")
 
-  print("Fidelity : {}".format((sum(fidelity_sum) / len(fidelity_sum))))
+  print()
+  print("Average")
   print("Sparsity : {}".format((sum(sparsity_sum) / len(sparsity_sum))))
-  print("============================================================")
+  print("Fidelity : {}".format((sum(fidelity_sum) / len(fidelity_sum))))
   print("Generality : {}".format((sum(generality_sum) / len(generality_sum))))
   print("Precision : {}".format((sum(precision_sum) / len(precision_sum))))
 

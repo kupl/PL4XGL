@@ -20,14 +20,14 @@ def eval_acc(dataset):
   
   train_set = len(data.train_graphs)
   labeled_train_set = len(data.train_graphs & data.label_to_graphs[1])
-  print("=======================================================")
+  #print("=======================================================")
   (default_label, fitted_label, amplify, val_threshold) = search_hyperparameters(data, dataset)
-  print("=======================================================")
+  #print("=======================================================")
 
-  print("Default label : {}".format(default_label))
-  print("Fitted label : {}".format(fitted_label))
-  print("Amplify : {}".format(amplify))
-  print("Val threshold : {}".format(val_threshold))
+  #print("Default label : {}".format(default_label))
+  #print("Fitted label : {}".format(fitted_label))
+  #print("Amplify : {}".format(amplify))
+  #print("Val threshold : {}".format(val_threshold))
   default_GDL_pgm = GDL()
   default_GDL_pgm.nodeVars = [{},{}]
   default_GDL_pgm.edgeVars = [({},0,1)]
@@ -45,7 +45,8 @@ def eval_acc(dataset):
       label = val[0]
       learned_GDL_pgm = val[1]
       score = val[2]
-      chosen_graphs = val[3]
+      #chosen_graphs = val[3]
+      chosen_graphs = eval_GDL_program_on_graphs_GC_test_graphs(learned_GDL_pgm, data)
       chosen_val_graphs = chosen_graphs & data.val_graphs 
       if len(chosen_val_graphs) < val_threshold:
         continue
@@ -61,13 +62,13 @@ def eval_acc(dataset):
     score1 = test_graph_to_scores[test_graph][1][0]
     score_list = [score0, score1]
     prediction = find_max(score_list)
-    print("=============== graph : {} ==================".format(test_graph))
-    print("Prediction : {}".format(prediction))
+    #print("=============== graph : {} ==================".format(test_graph))
+    #print("Prediction : {}".format(prediction))
   
-    print_GDL_program(test_graph_to_scores[test_graph][prediction][1])
-    print("Score : {}".format(test_graph_to_scores[test_graph][prediction][0]))  
-    print("==============================================")    
-    print()
+    #print_GDL_program(test_graph_to_scores[test_graph][prediction][1], 'normal')
+    #print("Score : {}".format(test_graph_to_scores[test_graph][prediction][0]))  
+    #print("==============================================")    
+    #print()
     if prediction == data.graph_to_label[test_graph]:
       correct = correct + 1
 
@@ -75,7 +76,8 @@ def eval_acc(dataset):
   print()
   print()
   print("--------------------")  
-  print("Correct : {}".format(correct))
+  print("Test graphs : {}".format(len(data.test_graphs)))
+  print("Correctly classified grpahs : {}".format(correct))
   print("Test Accuracy : {}".format(float(correct/len(data.test_graphs))))
   print("--------------------")
 
