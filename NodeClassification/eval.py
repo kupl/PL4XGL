@@ -11,6 +11,8 @@ import datetime
 def evaluate(dataset):
   data = data_loader(dataset)
 
+
+
   label_len = len(data.label_to_nodes)
   #print(label_len)
   val_test_nodes = data.val_nodes | data.test_nodes
@@ -46,7 +48,8 @@ def evaluate(dataset):
       label = learned_tuple[0]
       learned_GDL_pgm = learned_tuple[1]
       score = learned_tuple[2]
-      chosen_nodes = learned_tuple[3]
+      #chosen_nodes = learned_tuple[3]
+      chosen_nodes = eval_GDL_program_NC_DFS(learned_GDL_pgm, data)
 
       key = (json.dumps(learned_GDL_pgm.nodeVars), json.dumps(learned_GDL_pgm.edgeVars))
       if key in check_redundant_GDL_program:

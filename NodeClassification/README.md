@@ -70,7 +70,7 @@ $ python eval.py -d <dataset>
 ```
 
 
-It will produce the classification accuracy and elapsed time (classification time):
+For example, `$ python eval.py -d Wisconsin` will produce the classification accuracy and elapsed time (classification time) as follows:
 
 ```
 ==============================================================
@@ -80,6 +80,7 @@ Accuracy : 0.88
 ==============================================================
 Elapsed time: 0:00:02.158994
 ```
+
 
 
 ### Train model:
