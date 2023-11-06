@@ -11,7 +11,7 @@ def k_hop_subgraph_nodes (data, dataset, test_node):
   edges = set()
   if dataset in ['BA-Shapes', 'Tree-Cycles']:
     k = 3
-  elif dataset in ['Texas', 'Wisconsin', 'Cornell']
+  elif dataset in ['Texas', 'Wisconsin', 'Cornell']:
     k = 2
   else:
     raise Exception("Not Implemented")
