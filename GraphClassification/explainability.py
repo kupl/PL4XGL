@@ -79,9 +79,9 @@ def eval_acc_explainability(dataset):
     if test_graph_to_scores[test_graph][max_idx][0] > 0.0:
       prediction = max_idx
       provided_GDL_program = test_graph_to_scores[test_graph][prediction][1]
-      print()
-      print(provided_GDL_program.nodeVars)
-      print(provided_GDL_program.edgeVars)      
+      #print()
+      #print(provided_GDL_program.nodeVars)
+      #print(provided_GDL_program.edgeVars)      
       matching_subgraph = find_matching_subgraph(provided_GDL_program, data.graphs[test_graph], data)
 
       sparsity_score = 1 - (len(matching_subgraph[0]))/(len(data.graphs[test_graph][0]))
@@ -113,7 +113,7 @@ def eval_acc_explainability(dataset):
       
       print("=============== node : {} ==================".format(test_graph))
       print("Prediction : {}".format(prediction))    
-      print_GDL_program(test_graph_to_scores[test_graph][prediction][1])
+      print_GDL_program(test_graph_to_scores[test_graph][prediction][1], 'normal')
       print("Score : {}".format(test_graph_to_scores[test_graph][prediction][0]))  
       print("==============================================")    
       
