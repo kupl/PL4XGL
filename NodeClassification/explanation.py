@@ -9,10 +9,12 @@ from store_predictions import store_predictions
 def k_hop_subgraph_nodes (data, dataset, test_node):
   nodes = set([test_node])
   edges = set()
-  if dataset in ['BA-shapes', 'Tree-cycles']:
+  if dataset in ['BA-Shapes', 'Tree-Cycles']:
     k = 3
-  else:
+  elif dataset in ['Texas', 'Wisconsin', 'Cornell']
     k = 2
+  else:
+    raise Exception("Not Implemented")
   for i in range(k):
     tmp_nodes = copy.deepcopy(nodes)
     for _, node in enumerate(nodes):
@@ -161,7 +163,7 @@ def eval_acc_explainability(dataset):
   print()
   print("==============================================================")
   print("Test Nodes : {}".format(len(data.test_nodes)))
-  print("Accurately Classified Nodes : {}".format(accurately_classified_nodes))
+  print("Correctly Classified Nodes : {}".format(accurately_classified_nodes))
   print("Accuracy : {}".format(accuracy))
   print("==============================================================")
  
