@@ -93,8 +93,8 @@ def data_loader(dataset):
   else:
     is_one_hot = False
 
-  print(is_one_hot)
-  print(feat_values)
+  #print(is_one_hot)
+  #print(feat_values)
   feature_len = len(X[0])
   
   feature_list = []

@@ -124,8 +124,8 @@ def search_hyperparameters(data, dataset):
 
 
   (node_scores, _) = map_val_nodes_to_scores(data, dataset)
-  print("Default lable :{}".format(default_label))
-  print("Fitted lable :{}".format(fitted_label))
+  #print("Default lable :{}".format(default_label))
+  #print("Fitted lable :{}".format(fitted_label))
 
   amplify_candidates = [0.90, 0.92, 0.94, 0.96, 0.98, 1.0]
   for _, amplify in enumerate(amplify_candidates):
@@ -135,9 +135,9 @@ def search_hyperparameters(data, dataset):
       score = score * amplify
       tmp_node_scores[val_node][fitted_label] = score
     (correct, _) = eval_validation(tmp_node_scores, data)
-    print()
-    print("Amplify : {}".format(amplify))
-    print("Correct : {}".format(correct))
+    #print()
+    #print("Amplify : {}".format(amplify))
+    #print("Correct : {}".format(correct))
 
     if correct >= best_correct:
       best_correct = correct
@@ -145,9 +145,9 @@ def search_hyperparameters(data, dataset):
   
 
       
-  print("Default_lablel : {}".format(default_label))
-  print("Fitted_label : {}".format(fitted_label))
-  print("Best amplify : {}".format(best_amplify))
+  #print("Default_lablel : {}".format(default_label))
+  #print("Fitted_label : {}".format(fitted_label))
+  #print("Best amplify : {}".format(best_amplify))
   val_nodes_len_thresholds = []
   for i in range(5):
     val_nodes_len_thresholds.append(int(data.epsilon * i))
@@ -159,12 +159,12 @@ def search_hyperparameters(data, dataset):
       best_val_threshold = threshold
       
       
-  print("Default label : {}".format(default_label))
-  print("Fitted label : {}".format(fitted_label))
-  print("Best amplify : {}".format(best_amplify))
-  print("Best threshold : {}".format(best_val_threshold))
+  #print("Default label : {}".format(default_label))
+  #print("Fitted label : {}".format(fitted_label))
+  #print("Best amplify : {}".format(best_amplify))
+  #print("Best threshold : {}".format(best_val_threshold))
   val_score = best_correct - left_nodes_len
-  print("======================================")
-  print("Val Score : {}".format(val_score))
-  print("======================================")
+  #print("======================================")
+  #print("Val Score : {}".format(val_score))
+  #print("======================================")
   return (default_label, fitted_label, best_amplify, best_val_threshold)

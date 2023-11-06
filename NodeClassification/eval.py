@@ -12,16 +12,16 @@ def evaluate(dataset):
   data = data_loader(dataset)
 
   label_len = len(data.label_to_nodes)
-  print(label_len)
+  #print(label_len)
   val_test_nodes = data.val_nodes | data.test_nodes
   
-  print("=======================================================")
+  #print("=======================================================")
   (default_label, fitted_label, amplify, val_threshold) = search_hyperparameters(data, dataset)
-  print("=======================================================")
-  print("Default label : {}".format(default_label))
-  print("Fitted label : {}".format(fitted_label))
-  print("Amplify : {}".format(amplify))
-  print("Val threshold : {}".format(val_threshold))  
+  #print("=======================================================")
+  #print("Default label : {}".format(default_label))
+  #print("Fitted label : {}".format(fitted_label))
+  #print("Amplify : {}".format(amplify))
+  #print("Val threshold : {}".format(val_threshold))  
   default_GDL_pgm = GDL()
   default_GDL_pgm.nodeVars = [{}]
   default_GDL_pgm.edgeVars = []
@@ -35,13 +35,13 @@ def evaluate(dataset):
     test_node_to_scores[test_node][default_label] = (0.0, default_GDL_pgm)
   
   for my_label in range(label_len):
-    print("Processing label {}".format(my_label))
+    #print("Processing label {}".format(my_label))
     with open('datasets/{}/learned_GDL_programs/td/learned_GDL_programs_for_label_{}.pickle'.format(dataset, my_label), 'rb') as f:
       learned_tuples_set = pickle.load(f) 
     check_redundant_GDL_program = set()
-    print()
-    print("Label : {}".format(my_label))
-    print()
+    #print()
+    #print("Label : {}".format(my_label))
+    #print()
     for _, learned_tuple in enumerate(learned_tuples_set):
       label = learned_tuple[0]
       learned_GDL_pgm = learned_tuple[1]

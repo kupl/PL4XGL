@@ -111,7 +111,7 @@ def eval_acc_explainability(dataset):
       important_nodes = set(copy.deepcopy(matching_subgraph[0]))
       sparsity_score = 1 - (len(important_nodes) / len(original_nodes))
       sparsity_sum.append(sparsity_score)
-
+      fidelity_score = 0.0
       for my_label in range(len(data.label_to_nodes)):
         if my_label == prediction:
           continue
@@ -127,11 +127,13 @@ def eval_acc_explainability(dataset):
               if my_label == fitted_label:
                 score = score * amplify
               if score > test_node_to_scores[node][prediction][0]:
-                fidelity_sum.append(1)    
+                fidelity_score = 1.0
+                fidelity_sum.append(fidelity_score)
+                raise Exception("Cannot be happened")
                 #print("Cannot be happened")
                 #raise 
       
-      fidelity_sum.append(0)
+      fidelity_sum.append(fidelity_score)
       chosen_nodes = eval_GDL_program_NC_DFS(provided_GDL_program, data) 
       correctly_explained_predictions = chosen_nodes & node_predictions[prediction]
       generality = len(correctly_explained_predictions)/len(node_predictions[prediction])
@@ -145,7 +147,7 @@ def eval_acc_explainability(dataset):
       print()
       print_GDL_program(provided_GDL_program, 'normal')
       print("Sparsity : {}".format(sparsity_score))
-      print("Fidelity : {}".format(0))
+      print("Fidelity : {}".format(fidelity_score))
       print("Generality : {}".format(generality))
       print("Precision : {}".format(precision))
       print("============================================================")
@@ -162,7 +164,9 @@ def eval_acc_explainability(dataset):
   print("Accurately Classified Nodes : {}".format(accurately_classified_nodes))
   print("Accuracy : {}".format(accuracy))
   print("==============================================================")
-  
+ 
+  print()
+  print("Average")
   print("Fidelity : {}".format((sum(fidelity_sum) / len(fidelity_sum))))
   print("Sparsity : {}".format((sum(sparsity_sum) / len(sparsity_sum))))
   print("Generality : {}".format((sum(generality_sum) / len(generality_sum))))
