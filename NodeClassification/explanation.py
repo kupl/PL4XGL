@@ -13,6 +13,8 @@ def k_hop_subgraph_nodes (data, dataset, test_node):
     k = 3
   elif dataset in ['Texas', 'Wisconsin', 'Cornell']:
     k = 2
+  elif dataset in ['Cora', 'Citeseer', 'Pubmed']:
+    k = 2
   else:
     raise Exception("Not Implemented")
   for i in range(k):
@@ -61,7 +63,8 @@ def eval_acc_explainability(dataset):
     for label in range(label_len):
       test_node_to_scores[test_node].append((-1, None))
     test_node_to_scores[test_node][default_label] = (0.0, default_GDL_pgm)
-  
+ 
+  my_map = {}
   for my_label in range(label_len):
     print("Processing label {}".format(my_label))
     with open('datasets/{}/learned_GDL_programs/td/learned_GDL_programs_for_label_{}.pickle'.format(dataset, my_label), 'rb') as f:
@@ -75,6 +78,7 @@ def eval_acc_explainability(dataset):
       learned_GDL_pgm = learned_tuple[1]
       score = learned_tuple[2]
       chosen_nodes = learned_tuple[3]
+      my_map[learned_GDL_pgm] = chosen_nodes
       key = (json.dumps(learned_GDL_pgm.nodeVars), json.dumps(learned_GDL_pgm.edgeVars))
       if key in check_redundant_GDL_program:
         continue
@@ -104,6 +108,8 @@ def eval_acc_explainability(dataset):
 
   accurately_classified_nodes = 0
   for _, node in enumerate(data.test_nodes):
+    if not node in data.node_to_label:
+      continue
     my_GDL_programs_scores = copy.deepcopy(test_node_to_scores[node])
     prediction = find_max_0(test_node_to_scores[node])
     if test_node_to_scores[node][prediction][0] > 0.1:
@@ -121,7 +127,8 @@ def eval_acc_explainability(dataset):
           for _, score_pgm in enumerate(GDL_program_sets[my_label]):
             score = score_pgm[0]
             new_GDL_program = score_pgm[1]
-            chosen_nodes = eval_GDL_program_NC_DFS(new_GDL_program, data) 
+            #chosen_nodes = eval_GDL_program_NC_DFS(new_GDL_program, data) 
+            chosen_nodes = my_map[new_GDL_program]
             if node in chosen_nodes:
               chosen_train_nodes = chosen_nodes & data.train_nodes
               correctly_chosen_train_nodes = chosen_nodes & data.train_nodes & data.label_to_nodes[my_label]

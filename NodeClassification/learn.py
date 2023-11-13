@@ -4,7 +4,11 @@ import sys, os
 from data_loader import *
 
 def execute_command_td(dataset: str, label: int):
-    cmd = "python3 learn_from_label_td.py -d {} -l {}".format(dataset, label)
+    #Complex dataset
+    if dataset in ['Cora', 'Citeseer', 'Pubmed']:
+      cmd = "python3 learn_from_label_td_simple.py -d {} -l {}".format(dataset, label)
+    else:
+      cmd = "python3 learn_from_label_td.py -d {} -l {}".format(dataset, label)
     print(cmd)
     os.system(cmd)
 

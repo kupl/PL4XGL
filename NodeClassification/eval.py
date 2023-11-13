@@ -12,7 +12,6 @@ def evaluate(dataset):
   data = data_loader(dataset)
 
 
-
   label_len = len(data.label_to_nodes)
   #print(label_len)
   val_test_nodes = data.val_nodes | data.test_nodes
@@ -20,10 +19,10 @@ def evaluate(dataset):
   #print("=======================================================")
   (default_label, fitted_label, amplify, val_threshold) = search_hyperparameters(data, dataset)
   #print("=======================================================")
-  #print("Default label : {}".format(default_label))
-  #print("Fitted label : {}".format(fitted_label))
-  #print("Amplify : {}".format(amplify))
-  #print("Val threshold : {}".format(val_threshold))  
+  print("Default label : {}".format(default_label))
+  print("Fitted label : {}".format(fitted_label))
+  print("Amplify : {}".format(amplify))
+  print("Val threshold : {}".format(val_threshold))  
   default_GDL_pgm = GDL()
   default_GDL_pgm.nodeVars = [{}]
   default_GDL_pgm.edgeVars = []
@@ -66,10 +65,10 @@ def evaluate(dataset):
       for _, test_node in enumerate(chosen_nodes & data.test_nodes):
         if test_node_to_scores[test_node][label][0] < score:
           test_node_to_scores[test_node][label] = (score, learned_GDL_pgm)
-      
-      
   accurately_classified_nodes = 0
   for _, node in enumerate(data.test_nodes):
+    if not node in data.node_to_label:
+      continue
     prediction = find_max_0(test_node_to_scores[node])
     if prediction == data.node_to_label[node]:
       accurately_classified_nodes = accurately_classified_nodes + 1

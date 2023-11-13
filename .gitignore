@@ -1,4 +1,5 @@
 *.pyc
 *.pickle
 test.py
-
+*.log
+*legacy*

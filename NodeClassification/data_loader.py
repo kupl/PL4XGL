@@ -150,9 +150,17 @@ def data_loader(dataset):
   elif dataset == 'Wisconsin' or dataset == 'Texas' or dataset == 'Cornell':
     data.epsilon = 1
     data.is_undirected = False 
+  elif dataset == 'Cora' or dataset == 'Citeseer':
+    data.epsilon = 0.1
+    data.is_undirected = True 
+    data.is_complex_graph = False
+  elif dataset == 'Pubmed':
+    data.epsilon = 0.1
+    data.is_undirected = True 
+    data.is_complex_graph = True 
   else:
-    print("Not implemented")
-    raise 
+    raise Exception("Not implemented")
+  
   data.expected = 1.2
 
   #simple data
