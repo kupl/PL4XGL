@@ -328,7 +328,7 @@ def print_GDL_program(GDL_program, representation_type):
         print("edge (v{}, v{})".format(edgeVars[idx][1], edgeVars[idx][2]))
       else:
         print("edge (v{}, v{}) {}".format(edgeVars[idx][1], edgeVars[idx][2], edgeVars[idx][0]))
-    print("target node v1")
+    print("target node v0")
     print("------------------------------------------")
 
 
