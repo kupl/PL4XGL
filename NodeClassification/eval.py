@@ -19,10 +19,10 @@ def evaluate(dataset):
   #print("=======================================================")
   (default_label, fitted_label, amplify, val_threshold) = search_hyperparameters(data, dataset)
   #print("=======================================================")
-  print("Default label : {}".format(default_label))
-  print("Fitted label : {}".format(fitted_label))
-  print("Amplify : {}".format(amplify))
-  print("Val threshold : {}".format(val_threshold))  
+  #print("Default label : {}".format(default_label))
+  #print("Fitted label : {}".format(fitted_label))
+  #print("Amplify : {}".format(amplify))
+  #print("Val threshold : {}".format(val_threshold))  
   default_GDL_pgm = GDL()
   default_GDL_pgm.nodeVars = [{}]
   default_GDL_pgm.edgeVars = []

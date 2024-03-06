@@ -22,15 +22,15 @@ def eval_acc_explainability(dataset):
   test_graph_to_scores = {}
   score_pgm_sets= [set(), set()]
   
-  print("=======================================================")
+  #print("=======================================================")
   (default_label, fitted_label, amplify, val_threshold) = search_hyperparameters(data, dataset)
-  print("=======================================================")
+  #print("=======================================================")
 
 
-  print("Default label : {}".format(default_label))
-  print("Fitted label : {}".format(fitted_label))
-  print("Amplify : {}".format(amplify))
-  print("Threshold : {}".format(val_threshold))
+  #print("Default label : {}".format(default_label))
+  #print("Fitted label : {}".format(fitted_label))
+  #print("Amplify : {}".format(amplify))
+  #print("Threshold : {}".format(val_threshold))
   
   default_GDL_pgm = GDL()
   default_GDL_pgm.nodeVars = [{},{}]

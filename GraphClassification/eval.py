@@ -45,9 +45,8 @@ def eval_acc(dataset):
       label = val[0]
       learned_GDL_pgm = val[1]
       score = val[2]
-      #chosen_graphs = val[3]
       chosen_graphs = eval_GDL_program_on_graphs_GC_test_graphs(learned_GDL_pgm, data)
-      chosen_val_graphs = chosen_graphs & data.val_graphs 
+      chosen_val_graphs = val[3] & data.val_graphs 
       if len(chosen_val_graphs) < val_threshold:
         continue
       if label == fitted_label:
