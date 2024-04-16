@@ -152,6 +152,7 @@ def load_MUTAG():
   data.nodes_to_edge = nodes_to_edge
   data.epsilon = 0.1
   data.expected = 1.2
+  data.timeLimit = 10
   return data
 
 
@@ -253,6 +254,7 @@ def load_BBBP():
   data.nodes_to_edge = nodes_to_edge
   data.epsilon = 0.1
   data.expected = 1.2
+  data.timeLimit = 10
   return data
   #BBBBP
 
@@ -354,7 +356,116 @@ def load_BACE():
   data.nodes_to_edge = nodes_to_edge
   data.epsilon = 1
   data.expected = 1.2
+  data.timeLimit = 10
   return data
+
+
+
+def load_HIV():
+  data = Data()
+
+  with open("datasets/HIV/tr.pickle", 'rb') as f:
+    train_graphs = pickle.load(f)
+
+  with open("datasets/HIV/va.pickle", 'rb') as f:
+    val_graphs = pickle.load(f)
+
+  with open("datasets/HIV/te.pickle", 'rb') as f:
+    test_graphs = pickle.load(f)
+
+  with open("datasets/HIV/graph_to_label_hiv.pickle", 'rb') as f:
+    graph_to_label = pickle.load(f)
+
+  with open("datasets/HIV/X_node_hiv.pickle", 'rb') as f:
+    X_node = pickle.load(f)
+
+  with open("datasets/HIV/X_edge_hiv.pickle", 'rb') as f:
+    X_edge = pickle.load(f)
+
+  with open("datasets/HIV/new_A_hiv.pickle", 'rb') as f:
+    A = pickle.load(f)
+
+  with open("datasets/HIV/graphs_hiv.pickle", 'rb') as f:
+    graphs = pickle.load(f)
+
+
+
+  new_graphs = []
+  for i, val in enumerate(graphs):
+    new_graph = []
+    nodes = set()
+    for _, edge_idx in enumerate(val[1]):
+      (fr, to) = A[edge_idx]
+      nodes.add(fr)
+      nodes.add(to)
+    nodes= list(nodes)
+    new_graph.append(nodes)
+    new_graph.append(val[1])
+    new_graphs.append(new_graph)
+  graphs = new_graphs
+
+
+
+  label_to_graphs = {} 
+  label_to_graphs[0] = set()
+  label_to_graphs[1] = set()
+  graph_indices = set()
+  new_graph_to_label = {}
+
+  for i, val in enumerate(graph_to_label):
+    graph_indices.add(i)
+    if graph_to_label[i] == 1:
+      label_to_graphs[1].add(i)
+      new_graph_to_label[i] = 1
+    elif graph_to_label[i] == 0:
+      label_to_graphs[0].add(i)
+      new_graph_to_label[i] = 0 
+    else:
+      print("Cannot be happened")
+      raise ValueError
+
+
+ 
+  succ_node_to_nodes = {}
+  pred_node_to_nodes = {}
+  nodes_to_edge = {}
+
+  for idx, val in enumerate(A):
+    fr_node = val[0]
+    to_node = val[1]
+    nodes_to_edge[(fr_node, to_node)] = idx
+    if not fr_node in succ_node_to_nodes:
+      succ_node_to_nodes[fr_node] = set()
+    if not to_node in pred_node_to_nodes:
+      pred_node_to_nodes[to_node] = set()
+    succ_node_to_nodes[fr_node].add((idx, to_node))
+    pred_node_to_nodes[to_node].add((idx, fr_node))
+
+ 
+  data.train_graphs = train_graphs
+  data.val_graphs = val_graphs
+  data.test_graphs = test_graphs
+  data.graph_indices = graph_indices
+  data.graphs = graphs
+  data.X_edge = X_edge
+  data.X_node = X_node
+  data.A = A
+  data.graph_to_label = graph_to_label
+  data.label_to_graphs = label_to_graphs
+  data.succ_node_to_nodes = succ_node_to_nodes
+  data.pred_node_to_nodes = pred_node_to_nodes
+  data.nodes_to_edge = nodes_to_edge
+  data.epsilon = 0.1
+  data.expected = 1.0
+  data.timeLimit = 200
+  return data
+
+
+
+
+
+
+
 
 
 

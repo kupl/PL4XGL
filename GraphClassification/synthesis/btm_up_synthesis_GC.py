@@ -1,6 +1,6 @@
 from language import *
 from connected import graph_is_connected, separate_a_graph
-from synthesis.generalize import generalize 
+from synthesis.generalize import generalize, process_GDL_program_edges
 
 #def synthesis_bu(data):
 def learn_a_GDL_program(data):

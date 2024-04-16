@@ -13,6 +13,8 @@ def eval_acc(dataset):
     data = load_MUTAG()
   elif dataset == "BACE":
     data = load_BACE()
+  elif dataset == "HIV":
+    data = load_HIV()
   else:
     raise Exception("Not Implemented")
 

@@ -117,7 +117,7 @@ def generalize_edge(GDL_program, current_score, data) :
     edge_idx = edge_idx - 1
     finish = datetime.datetime.now() 
     elapsed = finish - start
-    if(elapsed > datetime.timedelta(seconds=10)):
+    if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
       break
   return (best_GDL_program, best_score)
 
@@ -140,7 +140,7 @@ def generalize_node(GDL_program, current_score, data) :
     node_idx = node_idx - 1
     finish = datetime.datetime.now() 
     elapsed = finish - start
-    if(elapsed > datetime.timedelta(seconds=10)):
+    if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
       break
   return (best_GDL_program, best_score)
 
@@ -175,7 +175,7 @@ def generalize_all(GDL_program, current_score, data) :
             best_score = new_score
           finish = datetime.datetime.now() 
           elapsed = finish - start
-          if(elapsed > datetime.timedelta(seconds=10)):
+          if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
             return (best_GDL_program, best_score)
 
           new_GDL_program = copy.deepcopy(current_GDL_program)
@@ -192,7 +192,7 @@ def generalize_all(GDL_program, current_score, data) :
             best_score = new_score
           finish = datetime.datetime.now() 
           elapsed = finish - start
-          if(elapsed > datetime.timedelta(seconds=10)):
+          if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
             return (best_GDL_program, best_score)
 
 
@@ -212,7 +212,7 @@ def generalize_all(GDL_program, current_score, data) :
             best_score = new_score
           finish = datetime.datetime.now() 
           elapsed = finish - start
-          if(elapsed > datetime.timedelta(seconds=10)):
+          if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
             return (best_GDL_program, best_score)
 
         else:
@@ -241,7 +241,7 @@ def generalize_all(GDL_program, current_score, data) :
             best_score = new_score
           finish = datetime.datetime.now() 
           elapsed = finish - start
-          if(elapsed > datetime.timedelta(seconds=10)):
+          if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
             return (best_GDL_program, best_score)
 
           new_GDL_program = copy.deepcopy(current_GDL_program)
@@ -258,7 +258,7 @@ def generalize_all(GDL_program, current_score, data) :
             best_score = new_score
           finish = datetime.datetime.now() 
           elapsed = finish - start
-          if(elapsed > datetime.timedelta(seconds=10)):
+          if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
             return (best_GDL_program, best_score)
           
         elif (a != -99 and b == 99) or (a == -99 and b != 99):
@@ -277,7 +277,7 @@ def generalize_all(GDL_program, current_score, data) :
             best_score = new_score
           finish = datetime.datetime.now() 
           elapsed = finish - start
-          if(elapsed > datetime.timedelta(seconds=10)):
+          if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
             return (best_GDL_program, best_score)
         else:
           continue
@@ -300,7 +300,7 @@ def generalize_all(GDL_program, current_score, data) :
       best_score = new_score
     finish = datetime.datetime.now() 
     elapsed = finish - start
-    if(elapsed > datetime.timedelta(seconds=10)):
+    if(elapsed > datetime.timedelta(seconds = data.timeLimit)):
       return (best_GDL_program, best_score)
     edge_idx = edge_idx - 1
 

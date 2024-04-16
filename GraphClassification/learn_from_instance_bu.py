@@ -1,9 +1,10 @@
 import pickle
-from data_loader import load_MUTAG, load_BBBP, load_BACE 
+from data_loader import load_MUTAG, load_BBBP, load_BACE, load_HIV
 from synthesis.btm_up_synthesis_GC import learn_a_GDL_program
 import argparse
 import datetime
 import os
+import datetime
 
 
 # learn a GDL program from a target graph (target_graph)
@@ -14,6 +15,8 @@ def learn(dataset, target_graph):
     data = load_MUTAG()
   elif dataset == 'BACE':
     data = load_BACE()
+  elif dataset == 'HIV':
+    data = load_HIV()
   else:
     raise Exception("Not Implemented")
 
@@ -50,5 +53,13 @@ if __name__ == '__main__':
   args = parser.parse_args()
   target_graph = int(args.target_graph)
   dataset = args.dataset
+  start = datetime.datetime.now()  
   learn(dataset, target_graph)
+  finish = datetime.datetime.now()
+  elapsed = finish - start  
+  #print()
+  #print("======================================")
+  #print("Training time: {}".format(elapsed))
+  #print("======================================")
 
+ 
