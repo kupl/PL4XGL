@@ -62,7 +62,6 @@ def eval_GDL_program_on_graphs_GC(GDL_program, data):
   return chosen_graphs
 
 
-
 def eval_GDL_program_on_graphs_GC_Score(GDL_program, data, labeled_graphs):
   correct_set = set()
   incorrect_set = set()
@@ -87,6 +86,33 @@ def eval_GDL_program_on_graphs_GC_Score(GDL_program, data, labeled_graphs):
   accuracy =  correct_graphs_len/(correct_graphs_len + incorrect_graphs_len + data.epsilon)
   score = accuracy
   return score 
+
+
+def eval_GDL_program_on_graphs_GC_Score_graphs(GDL_program, data, labeled_graphs):
+  correct_set = set()
+  incorrect_set = set()
+  edge_vars_len = len(GDL_program.edgeVars)
+
+  for i, graph in enumerate(data.graphs):
+    if not (i in data.train_graphs):
+      continue
+    edges_len = len(graph[1])
+    if (edge_vars_len > edges_len):
+      continue
+    exists = eval_GDL_program_DFS(GDL_program, graph, data) #ToDo
+
+    if exists:
+      if (i in labeled_graphs):
+        correct_set.add(i)
+      else:
+        incorrect_set.add(i)
+
+  correct_graphs_len = len(correct_set)
+  incorrect_graphs_len = len(incorrect_set)
+  accuracy =  correct_graphs_len/(correct_graphs_len + incorrect_graphs_len + data.epsilon)
+  score = accuracy
+  chosen_graphs = correct_set | incorrect_set
+  return score, chosen_graphs 
 
 
 
