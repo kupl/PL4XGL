@@ -11,9 +11,9 @@ def learn_a_GDL_program(data):
   if graph_is_connected(data.graphs[data.target_graph],data):
     GDL_program = init_GDL_program_from_idx(data, data.target_graph)
     learned_GDL_program = generalize(GDL_program, data)
-    #score = eval_GDL_program_on_graphs_GC_Score(learned_GDL_program, data, data.target_labeled_graphs)
-    #chosen_graphs = eval_GDL_program_on_graphs_GC(learned_GDL_program, data)
-    score, chosen_graphs = eval_GDL_program_on_graphs_GC_Score_graphs(learned_GDL_program, data, data.target_labeled_graphs)
+    score = eval_GDL_program_on_graphs_GC_Score(learned_GDL_program, data, data.target_labeled_graphs)
+    chosen_graphs = eval_GDL_program_on_graphs_GC(learned_GDL_program, data)
+    #score, chosen_graphs = eval_GDL_program_on_graphs_GC_Score_graphs(learned_GDL_program, data, data.target_labeled_graphs)
     # The algorithm abandons the learned GDL program if the score is lower than the default score or the number of chosen graphs is 1.
     if (score < data.default_score * data.expected) or (len(chosen_graphs & data.train_graphs) == 1):
       print("This Learning failed!!")
@@ -28,9 +28,9 @@ def learn_a_GDL_program(data):
       GDL_program = init_GDL_program_from_graph(data, concrete_graph)
       GDL_program = process_GDL_program_edges(GDL_program)
       learned_GDL_program = generalize(GDL_program, data)
-      #score = eval_GDL_program_on_graphs_GC_Score(learned_GDL_program, data, data.target_labeled_graphs)
-      #chosen_graphs = eval_GDL_program_on_graphs_GC(learned_GDL_program, data)   
-      score, chosen_graphs = eval_GDL_program_on_graphs_GC_Score_graphs(learned_GDL_program, data, data.target_labeled_graphs)
+      score = eval_GDL_program_on_graphs_GC_Score(learned_GDL_program, data, data.target_labeled_graphs)
+      chosen_graphs = eval_GDL_program_on_graphs_GC(learned_GDL_program, data)   
+      #score, chosen_graphs = eval_GDL_program_on_graphs_GC_Score_graphs(learned_GDL_program, data, data.target_labeled_graphs)
       if (score < data.default_score * data.expected) or (len(chosen_graphs & data.train_graphs) == 1):
         #if (score < data.default_score * data.expected):
         print("This learning failed!!")

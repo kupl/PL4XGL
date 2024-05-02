@@ -38,8 +38,8 @@ def DFS(src, edges):
   for i in range(len(edges)):
     adj_nodes = set()
     for _,node in enumerate(visited_nodes):
-      #for _, adj_node in enumerate(edges[node]):
-      adj_nodes = adj_nodes | edges[node]
+      for _, adj_node in enumerate(edges[node]):
+        adj_nodes = adj_nodes | edges[node]
     visited_nodes = visited_nodes | adj_nodes
   return visited_nodes
 
